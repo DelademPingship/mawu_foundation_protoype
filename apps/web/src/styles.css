@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Work+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Work+Sans:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +12,11 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, rgba(224, 205, 177, 0.22), transparent 36%),
+    radial-gradient(circle at 80% 10%, rgba(255, 216, 154, 0.24), transparent 32%),
+    radial-gradient(circle at 65% 70%, rgba(207, 186, 153, 0.18), transparent 38%),
+    #fdfaf5;
+  background-attachment: fixed;
 }
 
 @layer base {

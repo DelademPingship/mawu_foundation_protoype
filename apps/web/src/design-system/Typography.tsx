@@ -21,7 +21,7 @@ export const Heading = ({ level = 2, className, ...props }: HeadingProps) => {
 
   return (
     <Component
-      className={cn('font-display font-semibold tracking-tight text-ink-900', headingSizes[level], className)}
+      className={cn('font-display font-semibold tracking-tight text-ink-900 leading-[1.08]', headingSizes[level], className)}
       {...props}
     />
   );
@@ -32,7 +32,7 @@ export type EyebrowProps = HTMLAttributes<HTMLParagraphElement>;
 export const Eyebrow = ({ className, ...props }: EyebrowProps) => (
   <p
     className={cn(
-      'text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-brand-600',
+      'text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-gold-700',
       className
     )}
     {...props}
@@ -44,8 +44,8 @@ export type BodyProps = HTMLAttributes<HTMLParagraphElement> & {
 };
 
 const bodyVariants = {
-  default: 'text-base leading-relaxed text-ink-700',
-  muted: 'text-sm leading-relaxed text-ink-600',
+  default: 'text-base leading-relaxed text-ink-800',
+  muted: 'text-sm leading-relaxed text-ink-700',
   light: 'text-base leading-relaxed text-white/80'
 };
 

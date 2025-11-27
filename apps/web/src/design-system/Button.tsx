@@ -9,7 +9,7 @@ import type {
 } from 'react';
 import { cn } from '../lib/cn';
 
-type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'outline';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 type BaseProps = {
@@ -31,11 +31,13 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary:
     'bg-brand-500 text-white shadow-elevated hover:bg-brand-600 focus-visible:ring-brand-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
   secondary:
-    'bg-white text-brand-600 shadow-soft hover:text-brand-700 focus-visible:ring-brand-100 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
+    'bg-white text-brand-600 shadow-soft hover:text-brand-700 focus-visible:ring-gold-100 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
   tertiary:
     'bg-ink-900 text-white hover:bg-ink-800 focus-visible:ring-brand-200 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900',
   ghost:
-    'bg-transparent text-ink-700 hover:text-brand-600 hover:bg-brand-50 focus-visible:ring-brand-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
+    'bg-transparent text-ink-700 hover:text-brand-600 hover:bg-brand-50 focus-visible:ring-brand-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
+  outline:
+    'border border-clay-300 bg-white/20 text-ink-800 hover:border-gold-300 hover:text-gold-700 focus-visible:ring-gold-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
