@@ -7,12 +7,15 @@ const meta: Meta<typeof Section> = {
   args: {
     children: (
       <div className="space-y-6">
-        <Heading level={2}>Demo Section Layout</Heading>
+        <Heading level={2}>Calm, centered shell</Heading>
         <Body>
-          Sections manage vertical rhythm, optional backgrounds, and container padding so content remains consistent from hero to
-          footer.
+          Sections manage vertical rhythm, optional textures, and container padding so every page inherits generous spacing
+          without extra wrappers.
         </Body>
-        <Button>Primary CTA</Button>
+        <div className="flex flex-wrap gap-3">
+          <Button>Primary CTA</Button>
+          <Button variant="outline">Secondary</Button>
+        </div>
       </div>
     )
   }
@@ -33,6 +36,12 @@ export const Tinted: Story = {
 export const Muted: Story = {
   args: {
     background: 'muted'
+  }
+};
+
+export const Paper: Story = {
+  args: {
+    background: 'paper'
   }
 };
 
