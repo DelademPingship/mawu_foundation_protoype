@@ -33,35 +33,37 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <ToastProvider>
-        <CartProvider>
-          <BrowserRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route element={<SiteLayout />} path="/">
-                <Route index element={<LandingPage />} />
-                <Route element={<VisionPage />} path="vision" />
-                <Route element={<VoltaFocusPage />} path="volta-focus" />
-                <Route element={<ProgramsPage />} path="programs" />
-                <Route element={<ProgramDetailPage />} path="programs/:slug" />
-                <Route element={<StoriesPage />} path="stories" />
-                <Route element={<VoicesPage />} path="voices" />
-                <Route element={<EnhancedShopPage />} path="shop" />
-                <Route element={<ProductDetailPage />} path="shop/product/:slug" />
-                <Route element={<CartPage />} path="shop/cart" />
-                <Route element={<ShopCheckoutPage />} path="shop/checkout" />
-                <Route element={<ShopSuccessPage />} path="shop/success" />
-                <Route element={<EnhancedDonatePage />} path="donate" />
-                <Route element={<DonationCheckoutPage />} path="donate/checkout" />
-                <Route element={<DonationSuccessPage />} path="donate/success" />
-                <Route element={<AdminLoginPage />} path="admin/login" />
-                <Route element={<AdminDashboardPage />} path="admin/dashboard" />
-                <Route element={<NotFoundPage />} path="*" />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </CartProvider>
-      </ToastProvider>
+      <div className="antialiased bg-clay-50/60 text-ink-900">
+        <ToastProvider>
+          <CartProvider>
+            <BrowserRouter>
+              <ScrollToTop />
+              <Routes>
+                <Route element={<SiteLayout />} path="/">
+                  <Route index element={<LandingPage />} />
+                  <Route element={<VisionPage />} path="vision" />
+                  <Route element={<VoltaFocusPage />} path="volta-focus" />
+                  <Route element={<ProgramsPage />} path="programs" />
+                  <Route element={<ProgramDetailPage />} path="programs/:slug" />
+                  <Route element={<StoriesPage />} path="stories" />
+                  <Route element={<VoicesPage />} path="voices" />
+                  <Route element={<EnhancedShopPage />} path="shop" />
+                  <Route element={<ProductDetailPage />} path="shop/product/:slug" />
+                  <Route element={<CartPage />} path="shop/cart" />
+                  <Route element={<ShopCheckoutPage />} path="shop/checkout" />
+                  <Route element={<ShopSuccessPage />} path="shop/success" />
+                  <Route element={<EnhancedDonatePage />} path="donate" />
+                  <Route element={<DonationCheckoutPage />} path="donate/checkout" />
+                  <Route element={<DonationSuccessPage />} path="donate/success" />
+                  <Route element={<AdminLoginPage />} path="admin/login" />
+                  <Route element={<AdminDashboardPage />} path="admin/dashboard" />
+                  <Route element={<NotFoundPage />} path="*" />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </CartProvider>
+        </ToastProvider>
+      </div>
     </ErrorBoundary>
   );
 };

@@ -45,3 +45,10 @@ export const WithIcon: Story = {
     icon: '→'
   }
 };
+
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+    children: 'View programs'
+  }
+};

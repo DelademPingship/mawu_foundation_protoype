@@ -18,21 +18,19 @@ export const Default: Story = {
     children: (
       <>
         <CardHeader>
-          <Heading level={3}>Pan-African Impact Framework</Heading>
-          <Body variant="muted">
-            Our integrated approach spans education, health, water, livelihoods, and climate resilience—sequenced with communities
-            to deliver lasting change.
-          </Body>
+          <Heading level={3}>Lightweight card shell</Heading>
+          <Body variant="muted">Subtle borders, warm neutrals, and ample spacing keep content calm and legible.</Body>
         </CardHeader>
         <CardContent>
-          <Body variant="muted">Education studios igniting digital literacy and future-ready skills.</Body>
-          <Body variant="muted">Water security corridors with regenerative infrastructure and training.</Body>
-          <Body variant="muted">Economic empowerment through microfinance, cooperatives, and creative hubs.</Body>
+          <Body variant="muted">Use this treatment for story previews, checklists, or simple program overviews.</Body>
+          <Body variant="muted">Cards respond to hover with a gold border instead of heavy shadows.</Body>
         </CardContent>
         <CardFooter>
-          <Button size="sm">Back the framework</Button>
-          <Button size="sm" variant="ghost">
-            Partner with us
+          <Button size="sm" variant="primary">
+            Donate
+          </Button>
+          <Button size="sm" variant="outline">
+            Learn more
           </Button>
         </CardFooter>
       </>

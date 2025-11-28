@@ -4,7 +4,7 @@ import { cn } from '../lib/cn';
 const sizeStyles = {
   sm: 'max-w-4xl',
   md: 'max-w-6xl',
-  lg: 'max-w-[120rem]'
+  lg: 'max-w-[118rem]'
 };
 
 export type ContainerProps = {
@@ -26,7 +26,7 @@ export const Container = ({
       className={cn(
         'mx-auto w-full',
         sizeStyles[size],
-        padded && 'px-6 sm:px-8 lg:px-12',
+        padded && 'px-6 sm:px-10 lg:px-16',
         className
       )}
       {...props}

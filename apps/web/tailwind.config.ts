@@ -18,6 +18,18 @@ const config: Config = {
           800: '#943C00',
           900: '#7A3100'
         },
+        gold: {
+          50: '#FFF9EC',
+          100: '#FFEFD1',
+          200: '#FCDDA6',
+          300: '#F5C46F',
+          400: '#E3A73F',
+          500: '#C68A1F',
+          600: '#A36E14',
+          700: '#835610',
+          800: '#68430E',
+          900: '#53350D'
+        },
         ink: {
           50: '#F5F7FA',
           100: '#E4E8EE',
@@ -41,10 +53,22 @@ const config: Config = {
           700: '#8D6E35',
           800: '#6B5127',
           900: '#4B371B'
+        },
+        clay: {
+          50: '#FBF7F2',
+          100: '#F1E7DB',
+          200: '#E5D5C1',
+          300: '#D5BEA3',
+          400: '#C1A57F',
+          500: '#A4825C',
+          600: '#856648',
+          700: '#6B513B',
+          800: '#543F32',
+          900: '#45342B'
         }
       },
       fontFamily: {
-        display: ['"DM Sans"', 'ui-sans-serif', 'system-ui'],
+        display: ['"Fraunces"', '"DM Sans"', 'ui-serif', 'serif'],
         body: ['"Work Sans"', 'ui-sans-serif', 'system-ui']
       },
       fontSize: {

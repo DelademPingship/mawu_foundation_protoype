@@ -2,23 +2,24 @@ import type { HTMLAttributes, JSX, ReactNode } from 'react';
 import { cn } from '../lib/cn';
 import { Container } from './Container';
 
-type Background = 'default' | 'tinted' | 'muted' | 'inverted';
+type Background = 'default' | 'tinted' | 'muted' | 'inverted' | 'paper';
 type Padding = 'none' | 'sm' | 'md' | 'lg';
 
 type Element = keyof Pick<JSX.IntrinsicElements, 'div' | 'section' | 'article' | 'header' | 'footer' | 'main'>;
 
 const backgroundStyles: Record<Background, string> = {
   default: 'bg-transparent',
-  tinted: 'bg-white/70 backdrop-blur',
-  muted: 'bg-sand-100/60',
+  tinted: 'bg-gradient-to-br from-sand-50 via-white to-clay-50/80',
+  muted: 'bg-sand-50/60',
+  paper: 'bg-[radial-gradient(circle_at_20%_20%,rgba(246,234,212,0.45),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(255,225,182,0.32),transparent_40%),#fdfaf5]',
   inverted: 'bg-ink-900 text-white'
 };
 
 const paddingStyles: Record<Padding, string> = {
   none: 'py-0',
-  sm: 'py-10 sm:py-12',
-  md: 'py-14 sm:py-16',
-  lg: 'py-20 sm:py-24'
+  sm: 'py-12 sm:py-16',
+  md: 'py-16 sm:py-20',
+  lg: 'py-20 sm:py-24 lg:py-28'
 };
 
 export type SectionProps<T extends Element = 'section'> = {
@@ -52,7 +53,7 @@ export const Section = <T extends Element = 'section'>(
   return (
     <Component
       className={cn(
-        'relative',
+        'relative border-t border-clay-100/80 first:border-t-0',
         backgroundStyles[background],
         paddingStyles[padding],
         bleed && 'px-0',
