@@ -8,8 +8,8 @@ export type CardProps = HTMLAttributes<HTMLDivElement> & {
 export const Card = ({ bleed = false, className, ...props }: CardProps) => (
   <div
     className={cn(
-      'rounded-3xl border border-ink-100/80 bg-white shadow-soft transition hover:shadow-elevated focus-within:shadow-elevated',
-      !bleed && 'p-6 sm:p-8',
+      'rounded-3xl border border-clay-200/80 bg-white/80 backdrop-blur shadow-[0_14px_40px_-28px_rgba(23,34,45,0.35)] transition hover:border-gold-200 hover:shadow-soft focus-within:border-gold-200',
+      !bleed && 'p-8 sm:p-10',
       bleed && 'overflow-hidden',
       className
     )}
