@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Simple fix for Rollup native module issues in deployment
- * This script ensures WASM fallback is used when native modules aren't available
+ * Fix for Rollup native module issues in deployment
+ * Completely replaces native.js to use WASM bindings
  */
 
 const fs = require('fs');
@@ -11,47 +11,42 @@ const path = require('path');
 console.log('Applying Rollup deployment fix...');
 
 try {
-  // Set environment variable
-  process.env.ROLLUP_USE_WASM = 'true';
-  
-  // Check if @rollup/wasm-node is available
-  const wasmNodePath = path.join(__dirname, 'node_modules', '@rollup', 'wasm-node');
-  if (fs.existsSync(wasmNodePath)) {
-    console.log('✅ @rollup/wasm-node is available');
-    
-    // Try to modify the rollup native.js file to force WASM usage
-    const rollupNativePath = path.join(__dirname, 'node_modules', 'rollup', 'dist', 'native.js');
-    if (fs.existsSync(rollupNativePath)) {
-      let nativeContent = fs.readFileSync(rollupNativePath, 'utf8');
-      
-      // Simple replacement to force WASM usage
-      if (!nativeContent.includes('ROLLUP_USE_WASM')) {
-        const wasmFallback = `
-// Force WASM usage in deployment environments
-if (process.env.ROLLUP_USE_WASM === 'true' || process.env.NODE_ENV === 'production') {
-  try {
-    const wasmBindings = require('@rollup/wasm-node/dist/native.js');
-    module.exports = wasmBindings;
-    console.log('Using Rollup WASM bindings');
-  } catch (e) {
-    console.log('WASM fallback failed, continuing with original code');
-  }
-}
-`;
-        
-        nativeContent = wasmFallback + nativeContent;
-        fs.writeFileSync(rollupNativePath, nativeContent);
-        console.log('✅ Applied WASM fallback to rollup native.js');
-      } else {
-        console.log('✅ WASM fallback already applied');
-      }
+  // Check both root and workspace node_modules
+  const locations = [
+    {
+      rollup: path.join(__dirname, 'node_modules', 'rollup', 'dist', 'native.js'),
+      wasm: path.join(__dirname, 'node_modules', '@rollup', 'wasm-node')
+    },
+    {
+      rollup: path.join(__dirname, 'apps', 'web', 'node_modules', 'rollup', 'dist', 'native.js'),
+      wasm: path.join(__dirname, 'apps', 'web', 'node_modules', '@rollup', 'wasm-node')
     }
-  } else {
-    console.log('⚠️  @rollup/wasm-node not found, relying on environment variables');
+  ];
+  
+  let patchedCount = 0;
+  
+  for (const loc of locations) {
+    if (fs.existsSync(loc.wasm) && fs.existsSync(loc.rollup)) {
+      // Completely replace native.js with WASM bindings
+      const wasmBindingsCode = `// Patched by fix-rollup.js to use WASM bindings
+console.log('Using Rollup WASM bindings (patched)');
+module.exports = require('@rollup/wasm-node/dist/native.js');
+`;
+      
+      fs.writeFileSync(loc.rollup, wasmBindingsCode);
+      console.log(`✅ Patched: ${loc.rollup}`);
+      patchedCount++;
+    }
   }
   
-  console.log('🎉 Rollup fix applied successfully');
+  if (patchedCount === 0) {
+    console.log('⚠️  No rollup installations found to patch');
+  } else {
+    console.log(`🎉 Successfully patched ${patchedCount} rollup installation(s)`);
+  }
+  
 } catch (error) {
   console.error('❌ Error applying Rollup fix:', error.message);
   console.log('Continuing with build...');
+  process.exit(0);
 }

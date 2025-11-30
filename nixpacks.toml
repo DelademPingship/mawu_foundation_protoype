@@ -3,16 +3,17 @@
 aptPkgs = ['postgresql-client']
 
 [phases.install]
-# Install dependencies with production optimizations, skip optional deps that cause build issues
+# Install dependencies including dev dependencies for build
 cmds = [
   'rm -rf node_modules package-lock.json || true',
-  'npm install --include=dev --omit=optional',
+  'npm install --include=dev',
   'node fix-rollup.js || echo "Rollup fix failed, continuing..."'
 ]
 
 [phases.build]
 # Build frontend and prepare backend for production
 cmds = [
+  'node fix-rollup.js || echo "Rollup fix retry..."',
   'ROLLUP_USE_WASM=true npm run build --workspace @mawu/web',
   'npm run build:server',
   'npm run db:push:production',
