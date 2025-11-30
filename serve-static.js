@@ -45,15 +45,17 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Handle client-side routing - always return index.html for non-file requests
-app.get('*', (req, res) => {
-  res.sendFile(indexPath);
-});
-
-// Error handling
-app.use((err, req, res, next) => {
-  console.error('Server error:', err);
-  res.status(500).send('Internal Server Error');
+// Handle client-side routing - catch all routes and return index.html
+// Express 5 doesn't support '*' so we use a middleware instead
+app.use((req, res, next) => {
+  // If the request is for a file that doesn't exist, serve index.html
+  // This allows React Router to handle the routing
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 });
 
 const server = app.listen(PORT, '0.0.0.0', () => {
