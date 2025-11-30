@@ -1,6 +1,6 @@
 [phases.setup]
-# Install PostgreSQL client for database operations
-aptPkgs = ['postgresql-client']
+# No additional packages needed for static deployment
+aptPkgs = []
 
 [phases.install]
 # Install dependencies including dev dependencies for build
@@ -14,7 +14,10 @@ cmds = [
 # Build frontend for static deployment (skip backend for demo)
 cmds = [
   'node fix-rollup.js || echo "Rollup fix retry..."',
-  'ROLLUP_USE_WASM=true npm run build --workspace @mawu/web'
+  'ROLLUP_USE_WASM=true npm run build --workspace @mawu/web',
+  'echo "Build complete, checking output..."',
+  'ls -la apps/web/dist/ || echo "Dist directory not found!"',
+  'test -f apps/web/dist/index.html && echo "✅ index.html found" || echo "❌ index.html missing!"'
 ]
 
 [start]
