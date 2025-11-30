@@ -1,34 +1,52 @@
-# Rollup WASM Fix for Coolify Deployment
+# Coolify Deployment Fix - Complete Solution
 
-## Problem
-The deployment was failing because Rollup was trying to load native bindings (`@rollup/rollup-linux-x64-gnu`) which weren't available in the build environment, even though the WASM fallback (`@rollup/wasm-node`) was installed.
+## Problems Fixed
 
-## Solution Applied
+### 1. Rollup Native Bindings Issue
+The deployment was failing because Rollup was trying to load native bindings (`@rollup/rollup-linux-x64-gnu`) which weren't available in the build environment.
 
-### 1. Enhanced fix-rollup.js
-- Now completely replaces `rollup/dist/native.js` with a simple module that directly requires the WASM bindings
+### 2. TypeScript Compilation Errors
+The server build was failing due to SQLite schema being used with PostgreSQL storage layer.
+
+### 3. Static Deployment Configuration
+The project is a static investor demo but was configured to run a Node.js server.
+
+## Solutions Applied
+
+### 1. Rollup WASM Fix (fix-rollup.js)
+- Completely replaces `rollup/dist/native.js` with a simple module that directly requires WASM bindings
 - Checks both root and workspace node_modules directories
-- More aggressive patching approach that prevents native module loading entirely
+- Prevents native module loading entirely
 
-### 2. Updated nixpacks.toml
-- Removed `--omit=optional` flag to ensure all dev dependencies install properly
-- Runs fix-rollup.js twice: once after install and once before build
-- Maintains `ROLLUP_USE_WASM=true` environment variable
+### 2. Static-Only Build (nixpacks.toml)
+- Removed server build steps (`build:server`, `db:push:production`, `seed:admin:production`)
+- Configured to only build the frontend static assets
+- Uses `serve` package to serve static files on port 3000
 
-### 3. Updated vite.config.ts
+### 3. Storage Factory Fix (server/storage-factory.ts)
+- Fixed TypeScript module export issues
+- Properly exports `storage` and `db` from appropriate implementations
+
+### 4. Stripe API Version Update (server/routes.ts)
+- Updated from `2025-09-30.clover` to `2025-10-29.clover`
+
+### 5. Vite Configuration (apps/web/vite.config.ts)
 - Added rollupOptions to suppress native binding warnings
-- Provides cleaner build output
+- Cleaner build output
 
 ## Files Modified
-- `fix-rollup.js` - Complete rewrite for more aggressive patching
-- `nixpacks.toml` - Updated install phase and build commands
+- `fix-rollup.js` - Complete rewrite for WASM patching
+- `nixpacks.toml` - Static-only build configuration
+- `package.json` - Added `serve` dependency
+- `server/storage-factory.ts` - Fixed module exports
+- `server/routes.ts` - Updated Stripe API version
 - `apps/web/vite.config.ts` - Added rollup configuration
 
-## How It Works
-1. Dependencies install (including `@rollup/wasm-node` from devDependencies)
-2. fix-rollup.js patches rollup's native.js to use WASM directly
-3. Build runs with ROLLUP_USE_WASM=true environment variable
-4. Rollup uses WASM bindings instead of trying to load native modules
+## Deployment Flow
+1. Install dependencies (including `@rollup/wasm-node` and `serve`)
+2. Patch rollup to use WASM bindings
+3. Build frontend static assets with Vite
+4. Serve static files from `apps/web/dist` on port 3000
 
-## Testing
-Push these changes to trigger a new Coolify deployment. The build should now complete successfully using Rollup's WASM bindings.
+## Result
+A fully static deployment suitable for the investor demo, with no backend dependencies required at runtime.

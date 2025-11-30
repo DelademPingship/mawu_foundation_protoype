@@ -11,18 +11,15 @@ cmds = [
 ]
 
 [phases.build]
-# Build frontend and prepare backend for production
+# Build frontend for static deployment (skip backend for demo)
 cmds = [
   'node fix-rollup.js || echo "Rollup fix retry..."',
-  'ROLLUP_USE_WASM=true npm run build --workspace @mawu/web',
-  'npm run build:server',
-  'npm run db:push:production',
-  'npm run seed:admin:production'
+  'ROLLUP_USE_WASM=true npm run build --workspace @mawu/web'
 ]
 
 [start]
-# Start production server
-cmd = 'npm run start:production'
+# Serve static files from the built frontend
+cmd = 'npx serve -s apps/web/dist -l 3000'
 
 [variables]
 # Ensure production environment

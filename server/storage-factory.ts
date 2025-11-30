@@ -1,10 +1,12 @@
 // Storage factory to choose between SQLite (dev) and PostgreSQL (production)
+import * as storageSqlite from './storage';
+import * as storagePg from './storage-pg';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
-if (isProduction) {
-  // Use PostgreSQL in production
-  export * from './storage-pg';
-} else {
-  // Use SQLite in development
-  export * from './storage';
-}
+// Export the appropriate storage implementation
+export const storage = isProduction ? storagePg.storage : storageSqlite.storage;
+export const db = isProduction ? storagePg.db : storageSqlite.db;
+
+// Re-export types
+export type { Storage } from './storage';
