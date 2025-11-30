@@ -21,8 +21,9 @@ The Mawu Foundation project is now configured for static deployment on Coolify.
 ## Deployment Configuration
 
 **Build Output:** `apps/web/dist/`
-**Port:** 3000
-**Server:** Static file server (serve)
+**Port:** Uses `PORT` environment variable (defaults to 3000)
+**Server:** Express static file server (serve-static.js)
+**Binding:** 0.0.0.0 (accepts external connections)
 
 ## Next Steps
 
@@ -58,7 +59,14 @@ npm install
 npm run build --workspace @mawu/web
 
 # Serve static files
-npx serve -s apps/web/dist -l 3000
+node serve-static.js
 ```
 
 Visit http://localhost:3000 to preview the static site.
+
+## Troubleshooting
+
+**Bad Gateway Error:**
+- The server now binds to 0.0.0.0 to accept external connections
+- Uses PORT environment variable (Coolify sets this automatically)
+- Express handles client-side routing properly

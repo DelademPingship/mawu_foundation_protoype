@@ -19,7 +19,7 @@ cmds = [
 
 [start]
 # Serve static files from the built frontend
-cmd = 'npx serve -s apps/web/dist -l 3000'
+cmd = 'node serve-static.js'
 
 [variables]
 # Ensure production environment
